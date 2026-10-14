@@ -1,0 +1,15 @@
+{
+  "name": "tweetcat-miner",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TweetCat Miner - mine $TWEETCAT from your tweets. Cloudflare Worker + D1.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:local": "wrangler d1 migrations apply tweetcat --local",
+    "db:remote": "wrangler d1 migrations apply tweetcat --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^4.114.0"
+  }
+}

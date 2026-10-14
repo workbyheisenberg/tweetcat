@@ -1,0 +1,762 @@
+/* ==========================================================================
+   TweetCat Miner - pixel theme
+   Recreates the classic 8-bit beveled button look from the reference art
+   (drawn in pure CSS, no image assets required).
+   ========================================================================== */
+
+:root {
+  --bg: #14121f;
+  --bg-2: #1c1a2e;
+  --panel: #272341;
+  --panel-2: #322d52;
+  --line: #000000;
+  --text: #ece9ff;
+  --muted: #9a94c0;
+  --gold: #ffc93c;
+  --gold-dark: #c99700;
+  --gold-light: #ffe694;
+  --green: #57e389;
+  --green-dark: #1f8a4c;
+  --red: #ff5d5d;
+  --btn-face: #d6d6d6;
+  --btn-light: #ffffff;
+  --btn-dark: #8a8a8a;
+  --shadow: 0 0 0 3px #000000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "VT323", "Courier New", monospace;
+  font-size: 20px;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+h1,
+h2,
+h3,
+.pixel-font,
+.btn,
+label,
+.tab,
+.stat__label {
+  font-family: "Press Start 2P", "VT323", monospace;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--gold);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --------------------------------- Buttons -------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #241f14;
+  background: var(--btn-face);
+  border: 0;
+  padding: 12px 18px;
+  cursor: pointer;
+  box-shadow:
+    inset 4px 4px 0 0 var(--btn-light),
+    inset -4px -4px 0 0 var(--btn-dark),
+    var(--shadow);
+  image-rendering: pixelated;
+  user-select: none;
+}
+
+.btn:hover {
+  filter: brightness(1.05);
+}
+
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow:
+    inset 4px 4px 0 0 var(--btn-dark),
+    inset -4px -4px 0 0 var(--btn-light),
+    var(--shadow);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.7) brightness(0.8);
+}
+
+.btn--gold {
+  background: var(--gold);
+  box-shadow:
+    inset 4px 4px 0 0 var(--gold-light),
+    inset -4px -4px 0 0 var(--gold-dark),
+    var(--shadow);
+}
+
+.btn--green {
+  background: var(--green);
+  box-shadow:
+    inset 4px 4px 0 0 #a9f4c4,
+    inset -4px -4px 0 0 var(--green-dark),
+    var(--shadow);
+}
+
+.btn--red {
+  background: var(--red);
+  box-shadow:
+    inset 4px 4px 0 0 #ffb3b3,
+    inset -4px -4px 0 0 #a12f2f,
+    var(--shadow);
+}
+
+.btn--big {
+  font-size: 13px;
+  padding: 16px 24px;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--small {
+  font-size: 8px;
+  padding: 8px 10px;
+}
+
+/* --------------------------------- Panels --------------------------------- */
+
+.panel {
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.panel--inset {
+  background: var(--bg-2);
+  box-shadow:
+    inset 3px 3px 0 0 #000,
+    inset -3px -3px 0 0 #3d3866;
+}
+
+.divider {
+  height: 3px;
+  background: #000;
+  box-shadow: 0 3px 0 0 #4a4470;
+  margin: 14px 0;
+}
+
+/* ---------------------------------- Logo ---------------------------------- */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.logo__cat {
+  height: 42px;
+  width: auto;
+  image-rendering: pixelated;
+}
+
+.logo__text {
+  font-family: "Press Start 2P", monospace;
+  font-size: 13px;
+  color: var(--gold);
+  text-shadow: 3px 3px 0 #000;
+}
+
+.tagline {
+  text-align: center;
+  color: var(--muted);
+  margin: 8px 0 0;
+  font-size: 18px;
+}
+
+/* ------------------------------- Contract box ----------------------------- */
+
+.ca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-2);
+  box-shadow: inset 3px 3px 0 0 #000, inset -3px -3px 0 0 #3d3866;
+  padding: 8px 10px;
+  margin: 12px 0;
+}
+
+.ca__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.ca__value {
+  flex: 1;
+  font-size: 16px;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------------------------------- Stats --------------------------------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stat {
+  background: var(--bg-2);
+  box-shadow: inset 3px 3px 0 0 #000, inset -3px -3px 0 0 #3d3866;
+  padding: 10px;
+  text-align: center;
+}
+
+.stat__label {
+  font-size: 8px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.stat__value {
+  font-family: "VT323", monospace;
+  font-size: 30px;
+  color: var(--green);
+  line-height: 1;
+}
+
+.stat__value--gold {
+  color: var(--gold);
+}
+
+.stat__value--big {
+  font-size: 44px;
+}
+
+.mined {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.mined__value {
+  font-family: "VT323", monospace;
+  font-size: 52px;
+  color: var(--gold);
+  text-shadow: 3px 3px 0 #000;
+  line-height: 1;
+  word-break: break-all;
+}
+
+.mined__symbol {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 17px;
+  text-align: center;
+  margin: 10px 0 0;
+}
+
+.status {
+  text-align: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  margin: 10px 0 0;
+}
+
+.status--on {
+  color: var(--green);
+}
+
+.status--off {
+  color: var(--muted);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row > * {
+  flex: 1;
+}
+
+/* --------------------------------- Inputs --------------------------------- */
+
+.px-input {
+  width: 100%;
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  color: var(--text);
+  background: #0d0c16;
+  border: 0;
+  box-shadow: inset 3px 3px 0 0 #000, inset -3px -3px 0 0 #3d3866;
+  padding: 12px;
+  outline: none;
+}
+
+.px-input::placeholder {
+  color: #6d679a;
+}
+
+.px-input:focus {
+  box-shadow: inset 3px 3px 0 0 #000, inset -3px -3px 0 0 var(--gold);
+}
+
+/* ---------------------------------- Modal --------------------------------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 5, 12, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 50;
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.modal__title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: var(--gold);
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.modal__text {
+  color: var(--muted);
+  font-size: 17px;
+  margin: 0 0 12px;
+}
+
+.error {
+  color: var(--red);
+  font-size: 16px;
+  min-height: 18px;
+  margin: 6px 0 0;
+}
+
+/* --------------------------------- Toast ---------------------------------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background: #000;
+  color: var(--gold);
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  padding: 12px 16px;
+  box-shadow: var(--shadow);
+  z-index: 100;
+}
+
+/* ------------------------------- Leaderboard ------------------------------- */
+
+.board {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
+}
+
+.board th {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--muted);
+  text-transform: uppercase;
+  text-align: left;
+  padding: 8px;
+  border-bottom: 3px solid #000;
+}
+
+.board td {
+  padding: 10px 8px;
+  border-bottom: 2px solid #1d1a30;
+}
+
+.board tr.me td {
+  background: rgba(255, 201, 60, 0.12);
+}
+
+.board td.rank {
+  color: var(--gold);
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+}
+
+.board td.amount {
+  color: var(--green);
+  text-align: right;
+}
+
+.board td.tweets {
+  text-align: right;
+  color: var(--muted);
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 24px 0;
+}
+
+/* --------------------------------- Layout --------------------------------- */
+
+.site {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 18px 60px;
+}
+
+.site__hero {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+}
+
+.site__title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 22px;
+  color: var(--gold);
+  text-shadow: 4px 4px 0 #000;
+  margin: 0;
+}
+
+.site__section-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: var(--text);
+  margin: 0 0 14px;
+}
+
+.section {
+  margin-top: 34px;
+}
+
+.how {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.how .panel {
+  text-align: center;
+}
+
+.how__num {
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  color: var(--gold);
+}
+
+.how__txt {
+  color: var(--muted);
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 40px;
+}
+
+@media (max-width: 560px) {
+  .how {
+    grid-template-columns: 1fr;
+  }
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* --------------------------- Embed (tweet view) --------------------------- */
+/* X renders this iframe at a fixed size with scrolling disabled, so the whole
+   UI must fit on screen with no scroll. Everything is flex-based and sized to
+   fill exactly the height the iframe gives us. */
+
+html {
+  height: 100%;
+}
+
+body.embed {
+  height: 100%;
+  overflow: hidden;
+}
+
+body.embed .embed-wrap {
+  height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+body.embed .embed-head {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+body.embed .logo__cat {
+  height: 32px;
+  width: auto;
+}
+
+body.embed .logo__text {
+  font-size: 12px;
+}
+
+body.embed .tagline {
+  font-size: 15px;
+  margin: 4px 0 0;
+}
+
+body.embed .ca {
+  margin: 0;
+  padding: 6px 8px;
+}
+
+body.embed .ca__value {
+  font-size: 14px;
+}
+
+body.embed #miner {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* every screen fills the remaining space and centers its content */
+body.embed #miner > section {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+body.embed .mined {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+}
+
+body.embed .mined__value {
+  font-size: clamp(26px, 9vw, 48px);
+}
+
+body.embed #screen-start .mined__value {
+  font-size: clamp(18px, 6.5vw, 26px);
+}
+
+body.embed .stat-grid {
+  flex: 0 0 auto;
+}
+
+body.embed .stat__value {
+  font-size: 26px;
+}
+
+body.embed #coin-value {
+  font-size: 18px;
+}
+
+body.embed .status {
+  margin: 0;
+}
+
+body.embed .row {
+  flex: 0 0 auto;
+}
+
+body.embed .btn {
+  flex: 0 0 auto;
+}
+
+body.embed .embed-wallet {
+  margin: 0;
+  font-size: 14px;
+}
+
+body.embed .modal__title {
+  margin: 0;
+  font-size: 10px;
+}
+
+body.embed .modal__text {
+  margin: 0;
+  font-size: 15px;
+}
+
+body.embed .px-input {
+  font-size: 18px;
+  padding: 10px;
+}
+
+body.embed .error {
+  min-height: 14px;
+  margin: 0;
+}
+
+/* keep the toast at the top in the embed so it never covers the buttons */
+body.embed .toast {
+  top: 10px;
+  bottom: auto;
+}
+
+/* On very short embeds, hide the small wallet label so buttons stay visible */
+@media (max-height: 520px) {
+  body.embed .embed-wallet {
+    display: none;
+  }
+}
+
+/* --------------------------- Miner lists / links --------------------------- */
+
+a.btn {
+  text-decoration: none;
+}
+
+.linkbox {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: var(--gold);
+  background: #0d0c16;
+  box-shadow: inset 3px 3px 0 0 #000, inset -3px -3px 0 0 #3d3866;
+  padding: 10px;
+  word-break: break-all;
+}
+
+.board td.mono {
+  color: var(--muted);
+}
+
+.board td.on,
+.board td.off {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+}
+
+.board td.on {
+  color: var(--green);
+}
+
+.board td.off {
+  color: var(--muted);
+}
+
+body.embed #embed-generic .mined__value {
+  font-size: clamp(18px, 6.5vw, 26px);
+}
+
+body.embed #embed-miner-id {
+  font-size: 14px;
+  word-break: break-all;
+}
+
+body.embed a.btn {
+  margin-top: 2px;
+}
+
+/* ------------------------------ Wallet chip ------------------------------- */
+
+.wallet-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-2);
+  box-shadow: inset 3px 3px 0 0 #000, inset -3px -3px 0 0 #3d3866;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.wallet-chip__dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  background: var(--green);
+  box-shadow: 0 0 0 2px #000;
+}
+
+.wallet-chip__addr {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+}
+
+/* ------------------------------- Table actions ---------------------------- */
+
+.board td.actions {
+  white-space: nowrap;
+}
+
+.board td.actions .btn {
+  display: inline-flex;
+}
+
+
+

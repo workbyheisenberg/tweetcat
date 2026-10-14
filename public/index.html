@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TweetCat Miner - mine $TWEETCAT from your tweets</title>
+
+    <!-- ================= X (Twitter) Player Card tags ================= -->
+    <!-- %ORIGIN% and %PLAYER_URL% are filled in by the server. -->
+    <meta name="twitter:card" content="player" />
+    <meta name="twitter:site" content="@tweetcat" />
+    <meta name="twitter:title" content="TweetCat Miner" />
+    <meta
+      name="twitter:description"
+      content="Every tweet is its own miner. Play right inside the post."
+    />
+    <meta name="twitter:image" content="%ORIGIN%/card.png" />
+    <meta name="twitter:player" content="%PLAYER_URL%" />
+    <meta name="twitter:player:width" content="480" />
+    <meta name="twitter:player:height" content="560" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TweetCat Miner" />
+    <meta property="og:description" content="Every tweet is its own miner. Play right inside the post." />
+    <meta property="og:image" content="%ORIGIN%/card.png" />
+    <meta name="twitter:image:alt" content="TweetCat Miner - a pixel cat mining $TWEETCAT" />
+
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="site">
+      <!-- ============================== Hero ============================== -->
+      <section class="site__hero">
+        <img class="logo__cat" src="/tweetcat-logo.png" alt="" style="height: 84px; width: auto" />
+        <h1 class="site__title" data-app-name>TweetCat Miner</h1>
+        <p class="tagline" style="font-size: 22px">
+          Every tweet is its own miner. Mine <strong data-symbol>$TWEETCAT</strong>.
+        </p>
+
+        <div class="ca" style="max-width: 520px; width: 100%">
+          <span class="ca__label">CA</span>
+          <span class="ca__value" data-ca></span>
+          <button class="btn btn--small" type="button" data-copy-ca>COPY</button>
+        </div>
+
+        <div id="connect-box" class="stack" style="align-items: center">
+          <button class="btn btn--gold btn--big" type="button" data-connect>CONNECT WALLET</button>
+          <p class="hint">Connect, create a miner, then tweet its link.</p>
+        </div>
+      </section>
+
+      <p class="hint hidden" id="ref-banner"></p>
+
+      <!-- ============================ Dashboard ========================== -->
+      <section class="section hidden" id="dashboard">
+        <h2 class="site__section-title">YOUR MINERS</h2>
+
+        <div class="wallet-chip">
+          <span class="wallet-chip__dot"></span>
+          <span class="wallet-chip__addr" id="wallet-chip-addr"></span>
+          <button class="btn btn--small" type="button" id="wallet-disconnect">DISCONNECT</button>
+        </div>
+
+        <div class="stat-grid" style="margin-bottom: 12px">
+          <div class="stat">
+            <div class="stat__label">TOTAL MINED</div>
+            <div class="stat__value stat__value--big" id="total-mined">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">MINERS (TWEETS)</div>
+            <div class="stat__value" id="miner-count">0</div>
+          </div>
+        </div>
+        <div class="stat" style="margin-bottom: 12px">
+          <div class="stat__label">TOTAL YIELD / SEC</div>
+          <div class="stat__value stat__value--gold" id="total-rate">0.00</div>
+        </div>
+
+        <button class="btn btn--gold btn--big btn--block" type="button" id="btn-create-miner">
+          + CREATE MINER
+        </button>
+
+        <div class="panel hidden" id="new-miner" style="margin-top: 12px">
+          <p class="hint" style="margin: 0 0 8px; text-align: left">
+            Tweet this link, then open the post and tap <strong>START MINING</strong> inside it:
+          </p>
+          <div class="linkbox" id="new-miner-link"></div>
+          <div class="row" style="margin-top: 10px">
+            <button class="btn btn--small" type="button" id="new-miner-copy">COPY LINK</button>
+            <button class="btn btn--small" type="button" id="new-miner-copytweet">COPY TWEET</button>
+          </div>
+          <a
+            class="btn btn--gold btn--block"
+            id="new-miner-tweet"
+            target="_blank"
+            rel="noopener"
+            style="margin-top: 10px"
+            >TWEET IT</a
+          >
+        </div>
+
+        <div class="panel" style="padding: 0; overflow-x: auto; margin-top: 12px">
+          <table class="board">
+            <thead>
+              <tr>
+                <th>MINER</th>
+                <th>STATUS</th>
+                <th style="text-align: right">MINED</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="miner-list">
+              <tr><td colspan="4" class="empty">No miners yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =========================== How it works ========================= -->
+      <section class="section">
+        <h2 class="site__section-title">HOW IT WORKS</h2>
+        <div class="how">
+          <div class="panel">
+            <div class="how__num">1</div>
+            <p class="how__txt">Connect your <strong data-chain>Robinhood Chain</strong> wallet.</p>
+          </div>
+          <div class="panel">
+            <div class="how__num">2</div>
+            <p class="how__txt">Tweet the link, open the post, tap <strong>START MINING</strong> inside it.</p>
+          </div>
+          <div class="panel">
+            <div class="how__num">3</div>
+            <p class="how__txt">
+              Then it mines <strong><span data-rate>0.02</span> <span data-symbol>$TWEETCAT</span>/sec</strong>.
+              More tweets = more miners.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================== Leaderboard ========================== -->
+      <section class="section">
+        <h2 class="site__section-title">TOP MINERS</h2>
+        <div class="panel" style="padding: 0; overflow-x: auto">
+          <table class="board">
+            <thead>
+              <tr>
+                <th>RANK</th>
+                <th>MINER</th>
+                <th style="text-align: right">MINES</th>
+                <th style="text-align: right"><span data-symbol>$TWEETCAT</span></th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+              <tr><td colspan="4" class="empty">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="hint" id="board-updated"></p>
+      </section>
+
+      <p class="footer">
+        TweetCat Miner &middot; <span data-chain>Robinhood Chain</span> &middot; Not financial advice.
+      </p>
+    </div>
+
+    <!-- Wallet modal -->
+    <div class="overlay hidden" id="wallet-modal">
+      <div class="modal">
+        <h3 class="modal__title">Connect wallet</h3>
+        <button class="btn btn--gold btn--block" type="button" id="wallet-inject">
+          USE BROWSER WALLET
+        </button>
+        <p class="modal__text" style="margin: 12px 0 6px">
+          or paste your <strong data-chain>Robinhood Chain</strong> address
+        </p>
+        <input
+          class="px-input"
+          id="wallet-input"
+          type="text"
+          spellcheck="false"
+          autocomplete="off"
+          placeholder="0x..."
+        />
+        <p class="error" id="wallet-error"></p>
+        <div class="row" style="margin-top: 10px">
+          <button class="btn" type="button" id="wallet-cancel">CANCEL</button>
+          <button class="btn btn--gold" type="button" id="wallet-save">CONNECT</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="/config.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

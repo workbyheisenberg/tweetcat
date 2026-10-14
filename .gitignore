@@ -1,0 +1,15 @@
+# deps
+node_modules/
+
+# local Cloudflare state (contains local D1 + secrets)
+.wrangler/
+
+# local secrets
+.dev.vars
+.dev.vars.*
+
+# scratch
+shots/
+*.log
+.DS_Store
+Thumbs.db

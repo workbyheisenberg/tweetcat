@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TweetCat Miner</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="embed">
+    <div class="embed-wrap">
+      <header class="embed-head">
+        <div class="logo">
+          <img class="logo__cat" src="/tweetcat-logo.png" alt="" />
+          <span class="logo__text" data-app-name>TweetCat Miner</span>
+        </div>
+        <p class="tagline">Every tweet is its own miner</p>
+      </header>
+
+      <div class="ca">
+        <span class="ca__label">CA</span>
+        <span class="ca__value" data-ca></span>
+        <button class="btn btn--small" type="button" data-copy-ca>COPY</button>
+      </div>
+
+      <div id="miner">
+        <!-- No miner in this link: invite to create one -->
+        <section id="embed-generic" class="panel hidden">
+          <div class="mined">
+            <div class="mined__value start-title">TWEET = MINER</div>
+          </div>
+          <p class="hint">
+            Each tweet you post runs its own miner at<br />
+            <strong><span data-rate>0.02</span>/sec</strong>. Tweet more, mine more.
+          </p>
+          <a class="btn btn--gold btn--big btn--block" data-site-link target="_blank" rel="noopener">
+            CREATE YOUR OWN MINER
+          </a>
+        </section>
+
+        <!-- A miner is attached to this link: watch it live -->
+        <section id="embed-miner" class="panel hidden">
+          <div class="mined">
+            <div class="mined__value" id="embed-mined">0</div>
+            <div class="mined__symbol">MINED &middot; <span data-symbol>$TWEETCAT</span></div>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat">
+              <div class="stat__label">RATE / SEC</div>
+              <div class="stat__value stat__value--gold" id="embed-rate">0.02</div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">MINER</div>
+              <div class="stat__value mono-id" id="embed-miner-id">-</div>
+            </div>
+          </div>
+
+          <div class="status status--off" id="embed-status">CONNECTING…</div>
+
+          <button class="btn btn--green btn--big btn--block hidden" type="button" id="embed-start">
+            START MINING
+          </button>
+
+          <a class="btn btn--gold btn--block" data-site-link target="_blank" rel="noopener">
+            CREATE YOUR OWN MINER
+          </a>
+        </section>
+      </div>
+    </div>
+
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="/config.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

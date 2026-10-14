@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TweetCat Admin</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="site" style="max-width: 620px">
+      <section class="site__hero">
+        <img class="logo__cat" src="/tweetcat-logo.png" alt="" style="height: 72px; width: auto" />
+        <h1 class="site__title" style="font-size: 18px">TweetCat Admin</h1>
+        <p class="tagline">Change these once — the site and every tweet card update instantly.</p>
+      </section>
+
+      <section class="section">
+        <div class="panel stack">
+          <label class="stat__label">ADMIN PASSWORD</label>
+          <input class="px-input" id="pw" type="password" autocomplete="current-password" placeholder="password" />
+          <div class="row" style="margin-top: 10px">
+            <button class="btn" type="button" id="load">LOAD</button>
+            <button class="btn btn--gold" type="button" id="save">SAVE</button>
+          </div>
+        </div>
+
+        <div class="panel stack" id="fields" style="margin-top: 16px">
+          <label class="stat__label">CONTRACT ADDRESS (CA)</label>
+          <input class="px-input" id="ca" type="text" spellcheck="false" placeholder="0x..." />
+
+          <label class="stat__label" style="margin-top: 12px">TOKEN SYMBOL</label>
+          <input class="px-input" id="symbol" type="text" spellcheck="false" placeholder="$TWEETCAT" />
+
+          <label class="stat__label" style="margin-top: 12px">TOKEN NAME</label>
+          <input class="px-input" id="tokenName" type="text" spellcheck="false" placeholder="TweetCat" />
+
+          <label class="stat__label" style="margin-top: 12px">CHAIN NAME</label>
+          <input class="px-input" id="chainName" type="text" spellcheck="false" placeholder="Robinhood Chain" />
+
+          <label class="stat__label" style="margin-top: 12px">MINING RATE ($ per second, per miner)</label>
+          <input class="px-input" id="rate" type="text" spellcheck="false" placeholder="0.02" />
+
+          <button class="btn btn--gold btn--block" type="button" id="save2" style="margin-top: 16px">
+            SAVE CHANGES
+          </button>
+        </div>
+
+        <p class="hint" id="log" style="margin-top: 14px"></p>
+      </section>
+    </div>
+
+    <div class="toast hidden" id="toast"></div>
+
+    <script>
+      const $ = (s) => document.querySelector(s);
+      const log = (m) => { $("#log").textContent = m; };
+
+      function form() {
+        return {
+          password: $("#pw").value,
+          contractAddress: $("#ca").value.trim(),
+          tokenSymbol: $("#symbol").value.trim(),
+          tokenName: $("#tokenName").value.trim(),
+          chainName: $("#chainName").value.trim(),
+          ratePerMiner: $("#rate").value.trim(),
+        };
+      }
+
+      function fill(s) {
+        $("#ca").value = s.contractAddress || "";
+        $("#symbol").value = s.tokenSymbol || "";
+        $("#tokenName").value = s.tokenName || "";
+        $("#chainName").value = s.chainName || "";
+        $("#rate").value = s.ratePerMiner != null ? s.ratePerMiner : "";
+      }
+
+      async function load() {
+        const pw = $("#pw").value;
+        if (!pw) return log("Enter the admin password first.");
+        log("Loading...");
+        const res = await fetch("/api/admin/settings", {
+          headers: { authorization: "Bearer " + pw },
+          cache: "no-store",
+        });
+        if (!res.ok) return log("Wrong password? (" + res.status + ")");
+        fill(await res.json());
+        log("Loaded current settings.");
+      }
+
+      async function save() {
+        const body = form();
+        if (!body.password) return log("Enter the admin password first.");
+        log("Saving...");
+        const res = await fetch("/api/admin/settings", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) return log("Save failed: " + (data.error || res.status));
+        fill(data.settings);
+        log("Saved! Site + all tweet cards updated ✓");
+      }
+
+      $("#load").addEventListener("click", load);
+      $("#save").addEventListener("click", save);
+      $("#save2").addEventListener("click", save);
+    </script>
+  </body>
+</html>
